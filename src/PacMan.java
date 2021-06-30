@@ -5,10 +5,14 @@ public class PacMan extends MovingCharacter {
     public void step(Board board) { // does the move method but allows pac man to eat the dots.
         super.move(board);
         if (stepsRemainingOnPowerup>0)stepsRemainingOnPowerup--;
-        if (board.getTile(getxCoord(), getyCoord()) == 2) board.setTile(getxCoord(), getyCoord(), 0);
+        if (board.getTile(getxCoord(), getyCoord()) == 2)  {
+            board.setTile(getxCoord(), getyCoord(), 0);
+            board.decrementPelletsRemaining();
+        }
         if (board.getTile(getxCoord(), getyCoord()) == 3) {
             board.setTile(getxCoord(), getyCoord(), 0);
             stepsRemainingOnPowerup = powerUpDuration;
+            board.decrementPelletsRemaining();
         }
     }
 

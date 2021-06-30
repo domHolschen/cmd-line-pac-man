@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Board {
     int[][] arr = new int[19][22];
     Output o = new Output();
+    int pelletsRemaining = 160;
 
     public void resetBoard() {
         try {
@@ -22,6 +23,7 @@ public class Board {
                 }
                 vertIt++;
             }
+            pelletsRemaining = 160;
         } catch(FileNotFoundException exception) {
 
         }
@@ -54,11 +56,17 @@ public class Board {
                         display = "?";
                 }
                 if (pac.getxCoord() == i && pac.getyCoord() == j) {
-                    if (pac.getStepsRemainingOnPowerup() > 1) display = "C";
-                    else display = "c";
+                    if (pac.getStepsRemainingOnPowerup() > 1) display = "<";
+                    else display = "<";
                 }
                 for (Ghost g : ghosts) {
-                    if (g.getxCoord() == i && g.getyCoord() == j) display = "@";
+                    if (g.getxCoord() == i && g.getyCoord() == j) {
+                        if (g.getClass() == Pinky.class) display = "P";
+                        if (g.getClass() == Blinky.class) display = "B";
+                        if (g.getClass() == Clyde.class) display = "C";
+                        if (g.getClass() == Inky.class) display = "I";
+                        if (pac.getStepsRemainingOnPowerup() > 1) display = "@";
+                    }
                 }
                 o.msg(display+" ");
             }
@@ -83,6 +91,14 @@ public class Board {
         return false;
     }
 
+    public void decrementPelletsRemaining() {
+        pelletsRemaining--;
+    }
+
+    public int getPelletsRemaining() {
+        return pelletsRemaining;
+    }
+
     public void displayLoss() {
         o.msgln("                %%%%%%%%%%%                       .............             ");
         o.msgln("           %%%%%%%%%%%%%%%%%%%%%            ........................        ");
@@ -98,5 +114,32 @@ public class Board {
         o.msgln("   %%%%%   %%%%%%%%     %%%%%%%%   %%%%%    ........................        ");
         o.msgln("   %%%        %%%%%     %%%%%%        %%          .............             ");
         o.msgln("\nG A M E   O V E R");
+    }
+
+    public void displayWin() {
+        o.msgln("                      ...............                                     ");
+        o.msgln("                .........................                                 ");
+        o.msgln("            ...............................                               ");
+        o.msgln("         ................................                                 ");
+        o.msgln("      .................................                                   ");
+        o.msgln("    ...............................                                       ");
+        o.msgln("    .............................                                         ");
+        o.msgln("  .............................                                           ");
+        o.msgln("  ...........................                                             ");
+        o.msgln(".........................                                                 ");
+        o.msgln(".......................                                                   ");
+        o.msgln(".....................                                                     ");
+        o.msgln(".......................                                                   ");
+        o.msgln(".........................                          .***(&&&&&&&(***.      ");
+        o.msgln("  .........................                      ,(#&&&&&&&&&&&&&&&#(,    ");
+        o.msgln("  .............................                *%&&&&&&&&&&&&&&&&&&&&&%*  ");
+        o.msgln("  ...............................              /&&&&&     &&&     &&&&&/  ");
+        o.msgln("    ...............................          .*(&&&&&     &&&     &&&&&(**");
+        o.msgln("      ...............................        /&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+        o.msgln("        .................................    /&&&     &&&     &&&     &&&&");
+        o.msgln("           ................................  /&   &&&     &&&    (&&&   &&");
+        o.msgln("                .........................    /&&&&&&&#(#&&&&&&&#(#&&&&&&&&");
+        o.msgln("                      ...............        .,(&&&(,   ,(&&&(,   ,(&&&(,,");
+        o.msgln("\nY O U   W I N !");
     }
 }
