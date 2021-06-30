@@ -5,6 +5,8 @@ public class Pinky extends Ghost{
         setInactiveY(10);
     }
 
+    // pinky targets 3 tiles ahead of PM in the direction that he is moving
+
     public void changeDirection(Board board, PacMan pac) {
         int targetX = pac.getxCoord();
         int targetY = pac.getyCoord();

@@ -8,7 +8,7 @@ public class Board {
     Output o = new Output();
     int pelletsRemaining = 160;
 
-    public void resetBoard() {
+    public void resetBoard() { // self explanatory
         try {
             Scanner lineGrabber = new Scanner(new File("src//maze.csv"));
             int vertIt = 0;
@@ -82,7 +82,7 @@ public class Board {
         return arr[x][y];
     }
 
-    public boolean getSolid(int x, int y) {
+    public boolean getSolid(int x, int y) { //determines if a tile cannot be passed through (if it is 1 or 4 in the array)
         switch (arr[x][y]) {
             case 1:
             case 4:

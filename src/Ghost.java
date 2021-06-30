@@ -42,7 +42,7 @@ public abstract class Ghost extends MovingCharacter {
     }
 
 
-    public void step(Board board, PacMan pac) { // does the move method but allows the ghosts to turn
+    public void step(Board board, PacMan pac) { // does the move method but allows the ghosts to turn. also handles when the ghosts are in jail
         if (pac.getStepsRemainingOnPowerup()>0) isScatter = true;
         else isScatter = false;
         if (inactiveSteps > 0) {
@@ -61,10 +61,10 @@ public abstract class Ghost extends MovingCharacter {
         }
     }
 
-    public void changeDirection(Board board, PacMan pac) {
+    public void changeDirection(Board board, PacMan pac) { //overridden by each subclass
     }
 
-    public void randomDirection(Board board) {
+    public void randomDirection(Board board) { //selects a random direction if the desired direction the ghost wants to go isn't valid
         if (!checkIfCanMove(turnTo, board) || (turnTo+2)%4==getDirection()) {
             do {
                 turnTo = rand.nextInt(4);
@@ -72,7 +72,7 @@ public abstract class Ghost extends MovingCharacter {
         }
     }
 
-    public boolean handleTouchingPacMan(PacMan pac) { // will return true if the game is lost.
+    public boolean handleTouchingPacMan(PacMan pac) { // will return true if the game is lost. sends them to jail if pac man is powered up
         if (pac.getxCoord() == getxCoord() && pac.getyCoord() == getyCoord()) {
             if (pac.getStepsRemainingOnPowerup() > 0) {
                 setInactiveSteps(8);
@@ -82,11 +82,11 @@ public abstract class Ghost extends MovingCharacter {
         return false;
     }
 
-    public double distance(int x, int y, int targetX, int targetY) {
+    public double distance(int x, int y, int targetX, int targetY) { // distance formula
         return Math.sqrt(Math.pow(x-targetX, 2)+Math.pow(y-targetY, 2));
     }
 
-    public int directionForShortestPath(int targetX, int targetY, Board board) {
+    public int directionForShortestPath(int targetX, int targetY, Board board) { // finds the direction a ghost should turn in to reach its target
         double shortestDistance = -1;
         int originalX = getxCoord();
         int originalY = getyCoord();

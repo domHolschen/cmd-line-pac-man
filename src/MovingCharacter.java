@@ -27,7 +27,7 @@ public class MovingCharacter {
         return this.direction;
     }
 
-    public void move(Board board) { // this continually moves PacMan until he can change direction.
+    public void move(Board board) { // this moves a unit one space based on which direction its facing.
         switch (direction) {
             case 0:
                 xCoord += 1;
@@ -46,7 +46,7 @@ public class MovingCharacter {
         if (xCoord >= 18) xCoord = 1;
     }
 
-    public boolean checkIfCanMove(int dir, Board board) {
+    public boolean checkIfCanMove(int dir, Board board) { // checks if there is a block directly in front of the unit
         switch (dir) {
             case 0: // RIGHT
                 if (!board.getSolid(xCoord + 1, yCoord)) {
@@ -72,9 +72,10 @@ public class MovingCharacter {
         return false;
     }
 
+    // checks in the direction a ghost is moving if there is a solid in the way or if there are other paths that can be turned into.
     public boolean canChangeDirection(int dir, Board board) {
         switch (dir) {
-            case 0: // checks if in the direction PM is moving, there is a solid in the way, or if there are other paths that he can turn to.
+            case 0:
             case 2:
                 if (!board.getSolid(xCoord, yCoord + 1) || !board.getSolid(xCoord, yCoord - 1)) {
                     return true;

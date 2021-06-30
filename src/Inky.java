@@ -7,6 +7,10 @@ public class Inky extends Ghost {
         setInactiveX(8);
         setInactiveY(10);
     }
+
+    // inky is a doozy
+    // his target is the same distance as the distance between PM and blinky but on the other side of PM in relation to blinky
+
     public void changeDirection(Board board, PacMan pac) {
         int targetX;
         int targetY;
